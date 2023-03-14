@@ -1,37 +1,44 @@
 ﻿using System;
-using ToDoList.Models;
-using System.Linq;
 using Gtk;
+using ToDoList.Models;
+using static Gtk.Box;
 
 namespace ToDoList.Forms
 {
-    public partial class EditToDoItem : Window
+    public class EditTodoItem : Window
     {
-        protected TodoItem Model
-        {
-            get;
-            private set;
-        }
+        private TodoItem Model;
 
-        public EditToDoItem(TodoItem model) : base(WindowType.Toplevel)
+        private VBox Layout;
+
+        private Label SubjectLabel;
+        private BoxChild SubjectLabelBoxChild;
+
+        private Label SubjectError;
+        private BoxChild SubjectErrorBoxChild;
+
+        private Entry Subject;
+        private BoxChild SubjectBoxChild;
+
+        private Label DescriptionLabel;
+        private Label DescriptionError;
+        private ScrolledWindow DescriptionScroll;
+        private TextView Description;
+
+        public EditTodoItem(TodoItem model) : base(WindowType.Toplevel)
         {
             Model = model;
-            Build();
-            Populate();
-        }
 
-        protected void Populate()
-        {
-            Description.Buffer.Text = Model.Description;
-        }
+            Layout = new VBox();
+            Add(Layout);
 
-        protected void OnDescriptionKeyReleaseEvent(object o, KeyReleaseEventArgs args)
-        {
-            Model.Description = Description.Buffer.Text;
-            if (Model.PropertyHasErrors("Description"))
-            {
-                DescriptionError.Text = Model.FirstPropertyErrorMessage("Description");
-                DescriptionError.Visible = true;
+            SubjectLabel = new Label { }
+
+
+        }
+    }
+}
+DescriptionError.Visible = true;
             }
             else
             {
