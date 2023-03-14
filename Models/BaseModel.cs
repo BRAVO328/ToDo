@@ -6,49 +6,20 @@ namespace ToDoList.Models
 {
     public abstract class BaseModel
     {
-        private List<Error> _errors = new List<Error>();
-
-        protected void AddError(string propertyName, string message)
+        public Dictionary<string, string> Errors
         {
-            Error error = new Error();
-            error.PropertyName = propertyName;
-            error.Message = message;
-            _errors.Add(error);
-        }
-
-        protected void ClearErrors(string propertyName)
-        {
-            foreach (Error error in _errors.ToArray())
-            {
-                _errors.Remove(error);
-            }
-        }
+            get;
+            private set;
+        } = new Dictionary<string, string>();
 
         protected void CheckRequired(string propertyName, string message, string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                AddError(propertyName, message);
+                Errors[propertyName] = message;
             }
         }
 
-        public bool HasErrors
-        {
-            get
-            {
-                return _errors.Any();
-            }
-        }
-
-        public bool PropertyHasErrors(string propertyName)
-        {
-            return _errors.Any(e => e.PropertyName == propertyName);
-        }
-
-        public string FirstPropertyErrorMessage(string propertyName)
-        {
-            Error error = _errors.First(e => e.PropertyName == propertyName);
-            return error.Message;
-        }
+        public abstract void Validate();
     }
 }
