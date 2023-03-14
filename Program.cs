@@ -11,7 +11,7 @@ namespace ToDoList
         {
             Application.Init();
             TodoItem model = new TodoItem();
-            EditTodoItem window = new EditTodoItem(model);
+            EditToDoItem window = new EditToDoItem(model);
             window.Show();
             Application.Run();
         }

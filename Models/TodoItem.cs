@@ -1,18 +1,39 @@
 ﻿using System;
-using System.Linq;
 
 namespace ToDoList.Models
 {
     public class TodoItem : BaseModel
     {
-        public string Description { get; set; }
-        public string Subject { get; set; }
-
-        public override void Validate()
+        private string _description;
+        public string Description
         {
-            Errors.Clear();
-            CheckRequired("Description", "Description is required.", Description);
-            CheckRequired("Subject", "Subject is required.", Subject);
+            get
+            {
+                return _description;
+            }
+
+            set
+            {
+                ClearErrors("Description");
+                CheckRequired("Description", "Description is required.", value);
+                _description = value;
+            }
+        }
+
+        private string _subject;
+        public string Subject
+        {
+            get
+            {
+                return _subject; 
+            }
+
+            set
+            {
+                ClearErrors("Subject");
+                CheckRequired("Subject", "Subject is required.", value);
+                _subject = value;
+            }
         }
     }
 }
